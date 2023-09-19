@@ -84,6 +84,7 @@ window.addEventListener("keypress", (e) => {
   puntito = li.querySelector("span");
   puntito.style.color = colorRandom();
   puntito.style.fontSize = "25px";
+  console.log(e)
 });
 
 for (c of celdas) {
@@ -101,7 +102,6 @@ imagen.addEventListener("click", (e) => {
 });
 
 window.addEventListener("mousemove", (e) => {
-  console.log(e.button);
   ultimo_mov.querySelector("p").innerText = `${e.clientX}X ${
     e.clientY
   }Y \n ${parseInt(e.timeStamp / 1000)}S`;
