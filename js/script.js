@@ -7,7 +7,8 @@ const texto_protegido = document.querySelector("#nocopiar")
 const subtitulo3 = document.querySelector("#subtitulo3")
 const teclas_apretadas = document.querySelector("#teclas-apretadas")
 const celdas = document.querySelectorAll("td")
-
+const imagen = document.querySelector("#imagen-paint")
+const ultimo_mov = document.querySelector("#last_move")
 
 // funciones
 function clickeado(){
@@ -53,10 +54,14 @@ window.addEventListener("load", () => {
     document.querySelector("#loaded").classList.remove("d-none")
 })
 
-window.addEventListener("keydown",()=>{
-    p = document.createElement("li")
-    p.innerHTML = "se apreto la tecla"
-    teclas_apretadas.appendChild(p)
+window.addEventListener("keydown", (e) => {
+    li = document.createElement("li")
+    li.innerHTML = "se apreto la tecla: " + e.key
+    teclas_apretadas.appendChild(li)
+    li.innerHTML = "<span>• </span>" + li.innerText
+    puntito = li.querySelector("span")
+    puntito.style.color = colorRandom()
+    puntito.style.fontSize = "25px"
 })
 
 for (c of celdas){
@@ -64,3 +69,17 @@ for (c of celdas){
         this.style.backgroundColor = colorRandom()
     })
 }
+
+imagen.addEventListener("click", (e) => {
+    if (e.offsetX>imagen.width/2){
+        imagen.setAttribute("src", "img/esconderse.png")
+    }
+    else{
+        imagen.setAttribute("src", "img/doctor.jpg")
+    }
+})
+
+window.addEventListener("mousemove", (e)=>{
+    console.log(e.clientX, e.clientY)
+    ultimo_mov.querySelector("p").innerText = `${e.clientX}X ${e.clientY}Y \n ${parseInt(e.timeStamp/1000)}S`
+})
