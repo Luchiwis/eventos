@@ -11,6 +11,10 @@ const keypress = document.querySelector("#keypress");
 const celdas = document.querySelectorAll("td");
 const imagen = document.querySelector("#imagen-paint");
 const ultimo_mov = document.querySelector("#last_move");
+const pan = document.querySelector("#pan")
+const queso = document.querySelector("#queso")
+const botones_cadena = document.querySelectorAll("#cadena > input")
+
 
 // funciones
 function clickeado() {
@@ -22,6 +26,20 @@ function colorRandom() {
   g = parseInt(Math.random() * 255);
   b = parseInt(Math.random() * 255);
   return `rgb(${r},${g},${b})`;
+}
+
+function desplazar(botones){
+  for (i=0;i<botones.length-1;i++){
+    if (botones[i].classList.contains("btn-warning")){
+        botones[i].classList.remove("btn-warning")
+        botones[i+1].classList.add("btn-warning")
+        return
+    }
+  }
+  if (botones[botones.length-1].classList.contains("btn-warning")){
+    botones[botones.length-1].classList.remove("btn-warning")
+    botones[0].classList.add("btn-warning")
+  }
 }
 
 // eventos
@@ -106,3 +124,27 @@ window.addEventListener("mousemove", (e) => {
     e.clientY
   }Y \n ${parseInt(e.timeStamp / 1000)}S`;
 });
+
+pan.addEventListener("click", ()=>{
+  if (queso.innerText == "pan"){
+    queso.innerText = "queso"
+  }else if (queso.innerText == "queso"){
+    queso.innerText = "pan"
+  }
+})
+queso.addEventListener("click", ()=>{
+  if (pan.innerText == "pan"){
+    pan.innerText = "queso"
+  }else if (pan.innerText == "queso"){
+    pan.innerText = "pan"
+  }
+  
+})
+
+for (b of botones_cadena){
+  b.addEventListener("click", function(){
+    if (this.classList.contains("btn-warning")){
+      desplazar(botones_cadena)
+    }
+  })
+}
